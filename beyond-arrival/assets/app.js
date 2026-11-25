@@ -6,11 +6,13 @@ const form = document.getElementById("rsvp");
 const status = document.getElementById("status");
 const btn = form.querySelector("button");
 const f = form.elements; // form.name / form.role are built-in props, so read inputs via elements
+const FAILED = "Sorry, something went wrong. Please try again or message Nuvello Relocations on LinkedIn.";
 document.getElementById("previewRibbon").hidden = !!RECIPIENT;
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   status.className = "status";
+  for (const n of ["name", "phone", "email", "company", "role"]) f[n].value = f[n].value.trim(); // before validating, so spaces alone count as empty
   if (!form.checkValidity()) {
     const bad = form.querySelector(":invalid");
     const what = bad.labels[0].textContent.replace("*", "").trim().toLowerCase();
@@ -19,14 +21,18 @@ form.addEventListener("submit", async (e) => {
     bad.focus();
     return;
   }
-  if (f._honey.value) return; // bot
+  if (f._honey.value) { // bot, or a browser extension that filled the hidden field
+    status.textContent = FAILED;
+    status.classList.add("err");
+    return;
+  }
 
   const data = {
-    name: f.name.value.trim(),
-    phone: f.phone.value.trim(),
-    email: f.email.value.trim(),
-    company: f.company.value.trim(),
-    role: f.role.value.trim(),
+    name: f.name.value,
+    phone: f.phone.value,
+    email: f.email.value,
+    company: f.company.value,
+    role: f.role.value,
     marketing_consent: f.marketing.checked ? "Yes" : "No",
     _subject: "New RSVP — Beyond Arrival Roundtable (12 Jan 2027)",
     _template: "table",
@@ -53,11 +59,11 @@ form.addEventListener("submit", async (e) => {
     });
     const out = await res.json().catch(() => ({}));
     if (!res.ok || String(out.success) !== "true") throw new Error(out.message || res.status);
-    status.textContent = `Thank you, ${data.name}. Your interest is confirmed — check ${data.email} for details.`;
+    status.textContent = `Thank you, ${data.name}. We have received your details. A confirmation email should reach ${data.email} shortly.`;
     status.classList.add("ok");
     form.reset();
   } catch (err) {
-    status.textContent = "Sorry, something went wrong. Please try again or message Nuvello Relocations on LinkedIn.";
+    status.textContent = FAILED;
     status.classList.add("err");
   } finally {
     btn.disabled = false;
