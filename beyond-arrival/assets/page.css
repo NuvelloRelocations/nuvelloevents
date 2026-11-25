@@ -1,0 +1,14 @@
+/* Shared by privacy.html and thanks.html; colours from index.html */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: #fff; color-scheme: light; }
+body { font-family: "Montserrat", system-ui, sans-serif; color: #23251f; line-height: 1.6; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 22px; }
+header { background: #5f6352; color: #fff; padding: 40px 0; }
+header p { color: #f7ff99; font-weight: 700; }
+h1 { font-style: italic; font-weight: 800; font-size: clamp(2rem, 7vw, 3rem); line-height: 1.1; }
+main.wrap { padding-top: 32px; padding-bottom: 56px; }
+h2 { font-size: 1.15rem; margin: 28px 0 8px; }
+main p, li { margin-bottom: 12px; }
+ul { padding-left: 22px; }
+a { color: inherit; font-weight: 700; overflow-wrap: anywhere; }
+a:focus-visible { outline: 3px solid #7d806e; outline-offset: 2px; }

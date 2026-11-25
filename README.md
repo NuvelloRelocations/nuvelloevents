@@ -10,4 +10,4 @@ This is for nuvello events. The first one being the industry round table session
 
 Each event is a self-contained static page in its own folder.
 
-> **Status:** Beyond Arrival is in preview mode for management review. The form sends nothing until the RSVP inbox is set.
+> **Status:** Beyond Arrival is with management for review. The form sends nothing until the RSVP inbox is set.

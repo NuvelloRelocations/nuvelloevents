@@ -6,9 +6,9 @@
   <title>Beyond Arrival — HR &amp; Global Mobility Industry Roundtable | Nuvello Relocations</title>
   <meta name="description" content="12 January 2027, 6:00pm–7:30pm at Nuvello Head Office, DIP 1. Join HR &amp; mobility professionals to explore what helps international employees and their families feel settled in the UAE." />
   <!-- Only our own files, Google Fonts and FormSubmit may load or receive data -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://formsubmit.co; form-action 'none'; base-uri 'none'; object-src 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; form-action https://formsubmit.co; base-uri 'none'; object-src 'none'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <!-- Preview build: keep out of search engines until management approves -->
+  <!-- Keep out of search engines until management approves -->
   <meta name="robots" content="noindex, nofollow" />
 
   <!-- LinkedIn / social preview. og:image must be a full https:// URL once deployed -->
@@ -37,9 +37,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { container-type: inline-size; font-family: "Montserrat", system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.3; }
     a { color: inherit; }
-
-    .preview-ribbon { background: var(--lime); text-align: center; font-size: .78rem; font-weight: 700; letter-spacing: .06em; padding: 6px 12px; }
-    .preview-ribbon[hidden] { display: none; }
 
     /* ---------- Hero ---------- */
     .hero {
@@ -168,8 +165,6 @@
   </style>
 </head>
 <body>
-  <div class="preview-ribbon" id="previewRibbon" hidden>PREVIEW BUILD — FOR INTERNAL REVIEW · REGISTRATIONS ARE NOT SENT</div>
-
   <main class="hero">
     <div class="hero-inner">
       <div>
@@ -227,17 +222,23 @@
           <label for="role">Job title*</label>
           <input id="role" name="role" type="text" autocomplete="organization-title" required maxlength="120" />
 
-          <label class="consent"><input type="checkbox" name="marketing" /> I agree to receive other communications from Nuvello Relocations.</label>
+          <label class="consent"><input type="checkbox" id="marketing" /> I agree to receive other communications from Nuvello Relocations.</label>
 
           <!-- Spam trap: real people never fill this -->
           <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <!-- FormSubmit settings: it only emails the guest for a normal (non-AJAX) submit with reCAPTCHA on -->
+          <input type="hidden" name="marketing_consent" value="No" />
+          <input type="hidden" name="_subject" value="New RSVP — Beyond Arrival Roundtable (12 Jan 2027)" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://nuvellorelocations.github.io/nuvelloevents/beyond-arrival/thanks.html" />
+          <input type="hidden" name="_autoresponse" value="Thank you for securing your interest in Beyond Arrival — the HR &amp; Global Mobility Industry Roundtable hosted by Nuvello Relocations.&#10;&#10;Date: 12 January 2027&#10;Time: 6:00pm until 7:30pm (GST)&#10;Venue: Nuvello Head Office, DIP 1&#10;Light refreshments will be served.&#10;&#10;We look forward to seeing you.&#10;Nuvello Relocations" />
 
           <noscript><p class="status err">This form needs JavaScript. Please turn it on, or message Nuvello Relocations on LinkedIn.</p></noscript>
           <button type="submit">SUBMIT</button>
           <p class="status" id="status" role="status" aria-live="polite"></p>
         </form>
-        <!-- TODO before go-live: real privacy policy URL -->
-        <p class="privacy">[ PRIVACY NOTICE]&nbsp; <a href="#">Privacy Policy</a></p>
+        <p class="privacy"><a href="privacy.html">Privacy Policy</a></p>
       </section>
     </div>
   </main>
