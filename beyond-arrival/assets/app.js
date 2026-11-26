@@ -1,6 +1,6 @@
 // Set this to the inbox that should receive RSVPs before going live.
 // While empty, nothing is sent and guests are told registration is not open.
-const RECIPIENT = "";
+const RECIPIENT = "relocation@nuvellorealestate.ae";
 
 const form = document.getElementById("rsvp");
 const status = document.getElementById("status");
