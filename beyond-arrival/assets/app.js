@@ -1,5 +1,5 @@
 // Registration service (Cloudflare Worker in /worker). Set to "" to close registration.
-const API_URL = "__RSVP_API_ORIGIN__/register";
+const API_URL = "https://beyond-arrival-rsvp.nuvello.workers.dev/register";
 
 const form = document.getElementById("rsvp");
 const status = document.getElementById("status");

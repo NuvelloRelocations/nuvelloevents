@@ -2,6 +2,7 @@ name = "beyond-arrival-rsvp"
 main = "src/index.js"
 compatibility_date = "2026-11-01"
 workers_dev = true
+preview_urls = false
 
 # Secrets, set with `npx wrangler secret put <NAME>` (never written here):
 #   SMTP_PASS         password of the sending mailbox
