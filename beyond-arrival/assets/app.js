@@ -1,5 +1,5 @@
 // Set this to the inbox that should receive RSVPs before going live.
-// While empty, nothing is sent and guests are told registration is not open.
+// Set to "" to close registration: nothing is sent and guests are told it is not open.
 const RECIPIENT = "relocation@nuvellorealestate.ae";
 
 const form = document.getElementById("rsvp");
