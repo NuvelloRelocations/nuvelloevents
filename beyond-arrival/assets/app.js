@@ -25,7 +25,7 @@ form.addEventListener("submit", async (e) => {
   if (f._honey.value) return say(FAILED); // bot, or a browser extension that filled the hidden field
   if (!API_URL) return say("Registration is not open yet, so nothing was sent.");
   const token = f["cf-turnstile-response"]?.value;
-  if (!token) return say("Please complete the \"I'm human\" check above the button.");
+  if (!token) return say("One moment: we're checking your browser. If a \"Verify you are human\" box appears, tick it, then press SUBMIT again.");
 
   btn.disabled = true;
   say("Sending…", true);
