@@ -10,4 +10,4 @@ This is for nuvello events. The first one being the industry round table session
 
 Each event is a self-contained static page in its own folder.
 
-> **Status:** Beyond Arrival registration is open. RSVPs go to the events inbox through FormSubmit.
+> **Status:** Beyond Arrival registration is open. RSVPs are sent by the Cloudflare Worker in `worker/` from the company Microsoft 365 mailbox to the events inbox.
