@@ -1,0 +1,24 @@
+name = "beyond-arrival-rsvp"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+# Secrets, set with `npx wrangler secret put <NAME>` (never written here):
+#   SMTP_PASS         password of the sending mailbox
+#   TURNSTILE_SECRET  secret key of the Turnstile widget
+[vars]
+SMTP_HOST = "smtp.office365.com"
+SMTP_PORT = "587"
+SMTP_USER = "AI@nuvellorealestate.ae"
+RSVP_TO = "relocation@nuvellorealestate.ae"
+ALLOWED_ORIGINS = "https://nuvellorelocations.github.io"
+TURNSTILE_HOSTNAME = "nuvellorelocations.github.io"
+
+# 5 registrations per minute from one IP address (per Cloudflare location)
+[[ratelimits]]
+name = "RSVP_LIMIT"
+namespace_id = "2701"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Beyond Arrival — HR &amp; Global Mobility Industry Roundtable | Nuvello Relocations</title>
   <meta name="description" content="12 January 2027, 6:00pm–7:30pm at Nuvello Head Office, DIP 1. Join HR &amp; mobility professionals to explore what helps international employees and their families feel settled in the UAE." />
-  <!-- Only our own files, Google Fonts and FormSubmit may load or receive data -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; form-action https://formsubmit.co; base-uri 'none'; object-src 'none'" />
+  <!-- Only our own files, Google Fonts, Cloudflare's human check and our registration service may load or receive data -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src __RSVP_API_ORIGIN__; form-action 'none'; base-uri 'none'; object-src 'none'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <!-- Keep out of search engines until management approves -->
   <meta name="robots" content="noindex, nofollow" />
@@ -110,6 +110,7 @@
     }
     .consent input { margin-top: 1px; accent-color: var(--ink); }
     .honey { position: absolute; left: -9999px; }
+    .cf-turnstile { margin-top: 14px; min-height: 140px; display: flex; justify-content: center; }
     button {
       display: block; margin: calc(12 * var(--u)) auto 0;
       min-width: calc(131 * var(--u)); height: max(40px, calc(45 * var(--u))); padding: 0 28px;
@@ -222,17 +223,13 @@
           <label for="role">Job title*</label>
           <input id="role" name="role" type="text" autocomplete="organization-title" required maxlength="120" />
 
-          <label class="consent"><input type="checkbox" id="marketing" /> I agree to receive other communications from Nuvello Relocations.</label>
+          <label class="consent"><input type="checkbox" id="marketing" name="marketing" /> I agree to receive other communications from Nuvello Relocations.</label>
 
           <!-- Spam trap: real people never fill this -->
           <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-          <!-- FormSubmit settings: it only emails the guest for a normal (non-AJAX) submit with reCAPTCHA on -->
-          <input type="hidden" name="marketing_consent" value="No" />
-          <input type="hidden" name="_subject" value="New RSVP — Beyond Arrival Roundtable (12 Jan 2027)" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://nuvellorelocations.github.io/nuvelloevents/beyond-arrival/thanks.html" />
-          <input type="hidden" name="_autoresponse" value="Thank you for securing your interest in Beyond Arrival — the HR &amp; Global Mobility Industry Roundtable hosted by Nuvello Relocations.&#10;&#10;Date: 12 January 2027&#10;Time: 6:00pm until 7:30pm (GST)&#10;Venue: Nuvello Head Office, DIP 1&#10;Light refreshments will be served.&#10;&#10;We look forward to seeing you.&#10;Nuvello Relocations" />
+          <!-- Cloudflare Turnstile "I'm human" check; the helper verifies its token -->
+          <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITEKEY__" data-size="compact" data-theme="light"></div>
 
           <noscript><p class="status err">This form needs JavaScript. Please turn it on, or message Nuvello Relocations on LinkedIn.</p></noscript>
           <button type="submit">SUBMIT</button>
@@ -257,6 +254,7 @@
     </div>
   </footer>
 
-  <script src="assets/app.js?v=3"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="assets/app.js?v=4"></script>
 </body>
 </html>
