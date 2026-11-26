@@ -9,7 +9,7 @@ export const EVENT = {
 
 const TEXT_FIELDS = { name: 100, phone: 25, email: 150, company: 120, role: 120 };
 const ALLOWED_KEYS = new Set([...Object.keys(TEXT_FIELDS), "marketing", "token"]);
-const EMAIL_RE = /^[^\s@<>()[\]\\,;:"]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+const EMAIL_RE = /^[^\s@<>()[\]\\,;:"\u0080-\uffff]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
 const PHONE_RE = /^[\s+()-]*(?:\d[\s+()-]*){7,15}$/;
 const CONTROL_RE = /[\u0000-\u001f\u007f]/;
 

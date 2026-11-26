@@ -3,7 +3,17 @@ import { dotStuff } from "./lib.js";
 
 // Minimal SMTP client: STARTTLS + AUTH LOGIN, then one MAIL/RCPT/DATA per message.
 // shortcut: no connection reuse or retries; fine for one registration per request, upgrade if volume grows.
-export async function sendMail({ host, port, user, pass }, messages) {
+export async function sendMail(config, messages, timeoutMs = 20000) {
+  let timer;
+  const timeout = new Promise((_, reject) => { timer = setTimeout(() => reject(new Error("SMTP timed out")), timeoutMs); });
+  try {
+    return await Promise.race([session(config, messages), timeout]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function session({ host, port, user, pass }, messages) {
   const enc = new TextEncoder();
   let socket = connect({ hostname: host, port }, { secureTransport: "starttls" });
   let io = streams(socket);

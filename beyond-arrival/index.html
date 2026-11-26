@@ -80,7 +80,7 @@
       content: ""; position: absolute; left: calc(-12.5 * var(--u)); top: calc(50% - 16.5 * var(--u));
       width: calc(25 * var(--u)); height: calc(25 * var(--u)); border-radius: 50%; background: var(--lime); z-index: 1;
     }
-    .curve { position: absolute; left: calc(-94 * var(--u)); top: calc(50% - 4 * var(--u)); width: calc(100 * var(--u)); height: calc(240 * var(--u)); pointer-events: none; }
+    .curve { position: absolute; left: calc(-94 * var(--u)); top: calc(50% - 4 * var(--u)); width: calc(100 * var(--u)); height: calc(900 * var(--u)); pointer-events: none; } /* runs past the hero bottom; .hero clips it */
     .where { list-style: none; display: grid; gap: calc(13 * var(--u)); font-weight: 700; font-size: max(14px, calc(16.5 * var(--u))); }
     .where li { display: flex; align-items: center; gap: calc(12 * var(--u)); }
     .where svg { flex: none; width: max(16px, calc(18 * var(--u))); height: auto; }
@@ -179,7 +179,7 @@
 
         <div class="facts">
           <p class="when">
-            <svg class="curve" viewBox="0 0 100 240" preserveAspectRatio="none" aria-hidden="true"><path d="M94 0 C40 10 2 50 2 92 C2 150 90 180 97 240" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke" /></svg>
+            <svg class="curve" viewBox="0 0 100 900" preserveAspectRatio="none" aria-hidden="true"><path d="M94 0 C40 10 2 50 2 92 C2 150 90 180 97 240 L97 900" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke" /></svg>
             <time datetime="2027-01-12T18:00+04:00">12th January 2027<br />6:00pm until 7:30pm</time>
           </p>
           <ul class="where">
@@ -255,6 +255,6 @@
   </footer>
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script src="assets/app.js?v=4"></script>
+  <script src="assets/app.js?v=5"></script>
 </body>
 </html>

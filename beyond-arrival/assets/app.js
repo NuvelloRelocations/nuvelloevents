@@ -33,12 +33,18 @@ form.addEventListener("submit", async (e) => {
     const res = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(45000), // never leave the guest on "Sending…"
       body: JSON.stringify({
         name: f.name.value, phone: f.phone.value, email: f.email.value,
         company: f.company.value, role: f.role.value, marketing: f.marketing.checked, token,
       }),
     });
     const out = await res.json().catch(() => ({}));
+    if (res.ok && out.ok && out.confirmation === false) {
+      form.reset();
+      btn.disabled = false;
+      return say("Thank you, you're registered. We couldn't send your confirmation email, but your details have reached our team.", true);
+    }
     if (res.ok && out.ok) return location.assign("thanks.html");
     if (out.error === "invalid" && f[out.field]) {
       say("Please check your " + f[out.field].labels[0].textContent.replace("*", "").trim().toLowerCase() + ".");

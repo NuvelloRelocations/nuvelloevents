@@ -23,6 +23,7 @@ test("rejects bad input", () => {
     tooLong: { ...good, company: "x".repeat(121) },
     noToken: { ...good, token: "" },
     marketingNotBool: { ...good, marketing: "yes" },
+    nonAsciiEmail: { ...good, email: "jos\u00e9@company.ae" },
   };
   for (const [label, body] of Object.entries(bad)) assert.equal(validate(body).ok, false, label);
   assert.equal(validate([]).ok, false);
