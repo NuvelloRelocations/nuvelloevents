@@ -24,6 +24,9 @@ test("rejects bad input", () => {
     noToken: { ...good, token: "" },
     marketingNotBool: { ...good, marketing: "yes" },
     nonAsciiEmail: { ...good, email: "jos\u00e9@company.ae" },
+    rtlOverride: { ...good, name: "Test\u202Etxt.exe" },
+    zeroWidth: { ...good, company: "Ev\u200Bil" },
+    lineSeparator: { ...good, role: "A\u2028B" },
   };
   for (const [label, body] of Object.entries(bad)) assert.equal(validate(body).ok, false, label);
   assert.equal(validate([]).ok, false);

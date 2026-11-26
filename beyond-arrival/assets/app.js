@@ -1,3 +1,10 @@
+// Anti-clickjacking: never run the form inside another site's frame (GitHub Pages cannot send frame headers).
+if (window.top !== window.self) {
+  const a = Object.assign(document.createElement("a"), { href: location.href, target: "_top", textContent: "Open the Beyond Arrival registration page" });
+  document.body.replaceChildren(a);
+  throw new Error("Framed page: form disabled");
+}
+
 // Registration service (Cloudflare Worker in /worker). Set to "" to close registration.
 const API_URL = "https://beyond-arrival-rsvp.nuvello.workers.dev/register";
 

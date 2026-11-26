@@ -11,7 +11,8 @@ const TEXT_FIELDS = { name: 100, phone: 25, email: 150, company: 120, role: 120 
 const ALLOWED_KEYS = new Set([...Object.keys(TEXT_FIELDS), "marketing", "token"]);
 const EMAIL_RE = /^[^\s@<>()[\]\\,;:"\u0080-\uffff]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
 const PHONE_RE = /^[\s+()-]*(?:\d[\s+()-]*){7,15}$/;
-const CONTROL_RE = /[\u0000-\u001f\u007f]/;
+// Control characters, plus invisible and text-direction characters that could disguise a value
+const CONTROL_RE = /[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u2028-\u202e\u2060-\u2069\ufeff]/;
 
 // Returns { ok: true, data } or { ok: false, field }. Unknown keys are rejected (strict allow-list).
 export function validate(body) {

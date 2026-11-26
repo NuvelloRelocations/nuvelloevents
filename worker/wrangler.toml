@@ -15,11 +15,15 @@ RSVP_TO = "relocation@nuvellorealestate.ae"
 ALLOWED_ORIGINS = "https://nuvellorelocations.github.io"
 TURNSTILE_HOSTNAME = "nuvellorelocations.github.io"
 
-# 5 registrations per minute from one IP address (per Cloudflare location)
-[[ratelimits]]
-name = "RSVP_LIMIT"
-namespace_id = "2701"
+TURNSTILE_ACTION = "rsvp"
+# Strict limits, counted in a Durable Object (src/limiter.js)
+LIMIT_PER_IP_PER_MINUTE = "5"
+LIMIT_PER_EMAIL_PER_HOUR = "3"
 
-  [ratelimits.simple]
-  limit = 5
-  period = 60
+[[durable_objects.bindings]]
+name = "LIMITER"
+class_name = "RsvpLimiter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RsvpLimiter"]
