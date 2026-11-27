@@ -1,7 +1,7 @@
 // Run: node --test worker/test
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { validate, registrationEmails, buildMessage, dotStuff } from "../src/lib.js";
+import { validate, registrationEmails, buildMessage, dotStuff, safeFirstName } from "../src/lib.js";
 
 const good = { name: " Sara ", phone: "+971 50 123 4567", email: "sara@company.ae", company: "Acme", role: "HR Lead", marketing: true, token: "t" };
 const env = { SMTP_USER: "AI@nuvellorealestate.ae", RSVP_TO: "relocation@nuvellorealestate.ae" };
@@ -43,6 +43,29 @@ test("builds the two emails; guest email contains no submitted text", () => {
   assert.doesNotMatch(guest.text, /Evil|evil\.example/);
   assert.match(guest.raw, /^From: "Nuvello Relocations" <AI@nuvellorealestate\.ae>\r\n/);
   assert.doesNotMatch(guest.raw.split("\r\n\r\n")[0], /\n(?!\S)/); // no folded or injected header lines
+});
+
+test("only a letters-only first name reaches the guest email", () => {
+  const cases = {
+    "Sarah Al Mansoori": "Sarah", "sarah": "Sarah", "José García": "José", "O'Brien": "O'Brien",
+    "Anne-Marie": "Anne-Marie", "آمنة الشامسي": "آمنة",
+    "http://evil.example": "Guest", "<script>x</script>": "Guest", "1234": "Guest",
+    "Win$$$ prize": "Guest", ["a".repeat(31)]: "Guest", "": "Guest",
+  };
+  for (const [input, out] of Object.entries(cases)) assert.equal(safeFirstName(input), out, input);
+});
+
+test("guest email: approved wording, first name, branded HTML plus plain text", () => {
+  const data = validate({ ...good, name: "sarah Evil.example" }).data;
+  const [, guest] = registrationEmails(data, env, new Date("2026-11-26T10:00:00Z"));
+  assert.match(guest.text, /^Dear Sarah,\n/);
+  assert.match(guest.text, /Date: Tuesday, 12th January 2027/);
+  assert.match(guest.text, /Prepare\. Relocate\. Belong\.$/);
+  assert.doesNotMatch(guest.text + guest.html, /Evil|evil\.example/);
+  assert.match(guest.raw, /Content-Type: multipart\/alternative; boundary="=_nuvello_/);
+  assert.match(guest.raw, /Content-Type: text\/plain; charset=UTF-8/);
+  assert.match(guest.raw, /Content-Type: text\/html; charset=UTF-8/);
+  assert.match(guest.html, /Dear Sarah,/);
 });
 
 test("message body is base64 and decodes to the text", () => {
